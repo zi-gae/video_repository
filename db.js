@@ -1,6 +1,10 @@
 import mongoose from "mongoose"
 
-mongoose.connect("mongodb://localhost:27017/we-tube",
+import dotenv from "dotenv"
+dotenv.config() //env파일의 variable 들을 process.env.key 에 저장
+
+mongoose.connect(
+process.env.MONGO_URL,    
 {
     useNewUrlParser:true,
     useFindAndModify:false
@@ -9,7 +13,7 @@ mongoose.connect("mongodb://localhost:27017/we-tube",
 
 const db = mongoose.connection
 const handleOpen = () => console.log("✅ Connected to DB");
-const handleError = err => console.log(`❌ Error on DB Connection: ${error}`);
+const handleError = err => console.log(`❌ Error on DB Connection: ${err}`);
 
 db.once("open", handleOpen)
 db.on("error", handleError)
