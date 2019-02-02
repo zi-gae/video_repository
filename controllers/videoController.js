@@ -24,13 +24,22 @@ export const search = (req, res) => {
 // export const videos = (req, res) => res.render("videos", { pageTitle: "Videos" })
 export const getUpload = (req, res) =>
   res.render("upload", { pageTitle: "Upload" });
-export const postUpload = (req, res) => {
+
+export const postUpload = async (req, res) => {
   const {
-    body: { file, title, description }
+    body: { title, description },
+    file: { path }
   } = req;
-  // to do : upload and save video
-  res.redirect(routes.videoDetail(324393));
+  const newVideo = await Video.create({
+    fileUrl: path,
+    title: title,
+    description: description
+  });
+  console.log(newVideo);
+
+  res.redirect(routes.videoDetail(newVideo.id)); // mongodb 는 item 을 저장 할 때 마다 id 값이 default 로 들어감
 };
+
 export const videoDetail = (req, res) =>
   res.render("videoDetail", { pageTitle: "Video Detail" });
 export const editVideo = (req, res) =>
