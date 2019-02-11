@@ -10,13 +10,13 @@ import routes from "./routes";
 import { localsMiddleware } from "./middlewares";
 const app = express();
 
-app.set("view engine", "pug");
+app.set("view engine", "pug"); // view engine을 pug로 사용
 app.use(cookieParser());
-app.use(bodyParser.json());
+app.use(bodyParser.json()); // post 방식으로 넘어가는 데이터 json 타입으로 받아옴
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(morgan("dev"));
-app.use(helmet());
-app.use("/uploads", express.static("uploads")); // uploads 디렉토리에서 파일을 보내주는(html으로 보냄(pug) 미들웨어
+app.use(morgan("dev")); // 접근 방법 및 접근하는데 걸린시간 console 에 나타냄
+app.use(helmet()); // 보안 관련 middleware
+app.use("/uploads", express.static("uploads")); // /uploads 경로에서 uploads 라는 폴더에 있는 파일을 제공 할 수 있다.
 
 app.use(localsMiddleware);
 app.use(routes.home, globalRouter);

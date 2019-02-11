@@ -1,19 +1,17 @@
-import mongoose from "mongoose"
+import mongoose from "mongoose";
 
-import dotenv from "dotenv"
-dotenv.config() //env파일의 variable 들을 process.env.key 에 저장
+import dotenv from "dotenv";
 
-mongoose.connect(
-process.env.MONGO_URL,    
-{
-    useNewUrlParser:true,
-    useFindAndModify:false
-}
-)
+dotenv.config(); //env파일의 variable 들을 process.env.key 로 저장
 
-const db = mongoose.connection
+mongoose.connect(process.env.MONGO_URL, {
+  useNewUrlParser: true,
+  useFindAndModify: false
+});
+
+const db = mongoose.connection;
 const handleOpen = () => console.log("✅ Connected to DB");
 const handleError = err => console.log(`❌ Error on DB Connection: ${err}`);
 
-db.once("open", handleOpen)
-db.on("error", handleError)
+db.once("open", handleOpen);
+db.on("error", handleError);
