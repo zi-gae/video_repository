@@ -14,9 +14,9 @@ const CHANGE_PASSWORD = "/change-password";
 // Videos
 const VIDEOS = "/videos";
 const UPLOAD = "/upload";
-const VIDEO_DETAIL = "/:id";
-const EDIT_VIDEO = "/:id/edit";
-const DELETE_VIDEO = "/:id/delete";
+const VIDEO_DETAIL = "/:id"; // : 을 붙이면 data 를 받을것임을 암시
+const EDIT_VIDEO = "/:id/edit"; // : 을 붙이면 data를 받을것임을 암시
+const DELETE_VIDEO = "/:id/delete"; // : 을 붙이면 data를 받을것임을 암시
 
 const routes = {
   home: HOME,

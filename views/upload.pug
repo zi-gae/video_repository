@@ -4,6 +4,8 @@ block content
     form(action=routes.videos+routes.upload, method="post" enctype="multipart/form-data")
            label(for="avatar") Video
            input(type="file", id="file", name="videoFile", required=true, accept="video/*")
+            //- accept => upload 할 파일 type 을 지정
+
            input(type="text", placeholder="Title" name="title" required=true)
            textarea(name="description", cols="25", rows="5" required=true)
            input(type="submit" value="Upload Video")

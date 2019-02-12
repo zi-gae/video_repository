@@ -82,3 +82,6 @@ typings/
 .dynamodb/
 
 package-lock.json
+
+#Video file
+uploads
