@@ -32,7 +32,7 @@ export const getUpload = (req, res) =>
 export const postUpload = async (req, res) => {
   const {
     body: { title, description },
-    file: { path }
+    file: { path } // req.file 에 업로드 하려는 파일의 정보가 담겨 있음.
   } = req;
   const newVideo = await Video.create({
     // 디비에 저장하는 부분
@@ -45,8 +45,19 @@ export const postUpload = async (req, res) => {
   res.redirect(routes.videoDetail(newVideo.id)); // mongodb 는 item 을 저장 할 때 마다 id 값이 default 로 들어감
 };
 
-export const videoDetail = (req, res) =>
-  res.render("videoDetail", { pageTitle: "Video Detail" });
+export const videoDetail = async (req, res) => {
+  try {
+    const {
+      params: { id }
+    } = req; //id => router 에서 명시해준 name
+    const video = await Video.findById(id);
+    console.log(video);
+    res.render("videoDetail", { pageTitle: "Video Detail", video: video });
+  } catch (error) {
+    console.log(`error: ${error}`);
+    res.redirect(routes.home);
+  }
+};
 export const editVideo = (req, res) =>
   res.render("editVideo", { pageTitle: "Edit Video" });
 export const deleteVideo = (req, res) =>
