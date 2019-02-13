@@ -52,13 +52,50 @@ export const videoDetail = async (req, res) => {
     } = req; //id => router 에서 명시해준 name
     const video = await Video.findById(id);
     console.log(video);
-    res.render("videoDetail", { pageTitle: "Video Detail", video: video });
+    res.render("videoDetail", { pageTitle: video.title, video: video });
   } catch (error) {
     console.log(`error: ${error}`);
     res.redirect(routes.home);
   }
 };
-export const editVideo = (req, res) =>
-  res.render("editVideo", { pageTitle: "Edit Video" });
-export const deleteVideo = (req, res) =>
-  res.render("deleteVideo", { pageTitle: "Delete Video" });
+export const getEditVideo = async (req, res) => {
+  const {
+    params: { id }
+  } = req;
+  try {
+    const video = await Video.findById(id);
+
+    console.log(video);
+    res.render("editVideo", { pageTitle: `Edit ${video.title}`, video });
+  } catch (error) {
+    res.render(routes.home);
+  }
+};
+
+export const postEditVideo = async (req, res) => {
+  const {
+    body: { title, description },
+    params: { id }
+  } = req;
+  try {
+    await Video.findOneAndUpdate(id, {
+      title: title,
+      description: description
+    }); // findOneAndUpdate(index, object) change tuple
+    res.redirect(routes.videoDetail(id));
+  } catch (error) {
+    res.redirect(routes.home);
+  }
+};
+
+export const deleteVideo = async (req, res) => {
+  const {
+    params: { id }
+  } = req;
+  try {
+    await Video.findOneAndDelete(id);
+  } catch (error) {
+  } finally {
+    res.redirect(routes.home);
+  }
+};
