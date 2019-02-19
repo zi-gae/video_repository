@@ -14,12 +14,26 @@ export const home = async (req, res) => {
     //데이터가 디비에 없을때
   }
 };
-export const search = (req, res) => {
+export const search = async (req, res) => {
   const {
     query: { term: searchingBy }
   } = req;
+  let videos = [];
+  try {
+    videos = await Video.find({
+      title: { $regex: searchingBy, $options: "i" }
+    });
+    res.render("search", {
+      pageTitle: Video.title,
+      searchingBy: searchingBy,
+      videos
+    });
+  } catch (error) {
+    console.log(error);
+  }
+  videos = await Video.find({ title: { $regex: searchingBy, $option: i } });
   res.render("search", {
-    pageTitle: "Search",
+    pageTitle: Video.title,
     searchingBy: searchingBy,
     videos
   });
@@ -95,6 +109,7 @@ export const deleteVideo = async (req, res) => {
   try {
     await Video.findOneAndDelete(id);
   } catch (error) {
+    console.log(error);
   } finally {
     res.redirect(routes.home);
   }

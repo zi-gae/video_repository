@@ -20,3 +20,8 @@ mongoDB manual
   show collections => 테이블 목록
   db.videos.remove({}) 테이블 튜플?오브젝트?.. 삭제
 */
+
+/*
+npm install webpack 
+npm install webpack-cli => webpack 을 terminal 에서 사용 할 수 있게 해줌
+*/
