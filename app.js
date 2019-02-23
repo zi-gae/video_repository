@@ -17,6 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan("dev")); // 접근 방법 및 접근하는데 걸린시간 console 에 나타냄
 app.use(helmet()); // 보안 관련 middleware
 app.use("/uploads", express.static("uploads")); // /uploads 경로에서 uploads 라는 폴더에 있는 파일을 제공 할 수 있다.
+app.use("/static", express.static("static"));
 // express.static() => 주어진 directory 에서 file을 보내주는 middleware
 app.use(localsMiddleware);
 app.use(routes.home, globalRouter);
