@@ -18,10 +18,14 @@ resolve 는 오른쪽에서부터 경로를 합처 나가며 경로를 문자열
 */
 
 const config = {
-  entry: ENTRY_FILE, // file 이 어디서 왔는가
+  entry: ["@babel/polyfill", ENTRY_FILE], // file 이 어디서 왔는가
   module: {
     // module 을 만나면 아래 룰을 실행
     rules: [
+      {
+        test: /\.(js)$/,
+        use: [{ loader: "babel-loader" }]
+      },
       {
         // scss 로 끝나는 파일을 만나게 되면 extract plugin 사용
         /* 
