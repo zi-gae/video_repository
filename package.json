@@ -7,14 +7,16 @@
   "license": "ISC",
   "scripts": {
     "dev:server": "nodemon --exec babel-node init.js",
-    "dev:assets": "webpack --mode development",
+    "dev:assets": "webpack --mode development -w",
     "build:assets": "webpack --mode production"
   },
   "dependencies": {
     "@babel/core": "^7.2.2",
     "@babel/node": "^7.2.2",
+    "@babel/polyfill": "^7.2.5",
     "@babel/preset-env": "^7.3.1",
     "autoprefixer": "^9.4.8",
+    "babel-loader": "^8.0.5",
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
     "css-loader": "^2.1.0",
