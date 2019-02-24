@@ -1,4 +1,7 @@
 @import "./config/_variables.scss";
-body {
-  background-color: $sexyColor;
-}
+@import "./config/reset.scss";
+@import "./main.scss";
+@import "./parials/header.scss";
+@import "./parials/footer.scss";
+@import "./parials/form.scss";
+@import "./parials/socialLogin.scss";
