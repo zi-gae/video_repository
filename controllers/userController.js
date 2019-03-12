@@ -55,6 +55,7 @@ export const githubLoginCallback = async (
       user.githubId = id;
       user.save();
       return cb(null, user);
+      //user 정보를 세션에 저장
     }
     const newUser = await User.create({
       name: name,
@@ -69,6 +70,7 @@ export const githubLoginCallback = async (
 };
 
 export const githubLogin = passport.authenticate("github");
+//passsport 의 GithubStrategy 실행
 
 export const postGithubLogin = (req, res) => {
   res.redirect(routes.home);
