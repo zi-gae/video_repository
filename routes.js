@@ -17,6 +17,9 @@ const UPLOAD = "/upload";
 const VIDEO_DETAIL = "/:id"; // : 을 붙이면 data 를 받을것임을 암시
 const EDIT_VIDEO = "/:id/edit"; // : 을 붙이면 data를 받을것임을 암시
 const DELETE_VIDEO = "/:id/delete"; // : 을 붙이면 data를 받을것임을 암시
+//github
+const GITHUB = "/auth/github";
+const GITHUB_CALLBACK = "/auth/github/callback";
 
 const routes = {
   home: HOME,
@@ -56,7 +59,9 @@ const routes = {
     } else {
       return DELETE_VIDEO;
     }
-  }
+  },
+  github: GITHUB,
+  githubCallback: GITHUB_CALLBACK
 };
 
 export default routes;

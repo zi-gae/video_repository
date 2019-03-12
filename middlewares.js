@@ -6,11 +6,25 @@ const multerVideo = multer({ dest: "uploads/videos/" });
 export const localsMiddleware = (req, res, next) => {
   res.locals.siteName = "VideoPlayer";
   res.locals.routes = routes;
-  res.locals.user = {
-    isAuthenticated: false,
-    id: 1
-  };
+  res.locals.user = req.user || null;
   next();
+};
+
+export const onlyPublic = (req, res, next) => {
+  // 로그인이 되어 있으면 가입 페이지로 가는것을 막음
+  if (req.user) {
+    res.redirect(routes.home);
+  } else {
+    next();
+  }
+};
+export const onlyPrivate = (req, res, next) => {
+  // 로그인이 되어 있으면 가입 페이지로 가는것을 막음
+  if (!req.user) {
+    res.redirect(routes.home);
+  } else {
+    next();
+  }
 };
 
 export const uploadVideo = multerVideo.single("videoFile");

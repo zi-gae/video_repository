@@ -1,8 +1,10 @@
 import routes from "../routes";
 import User from "../models/User";
+import passport from "passport";
+
 export const getJoin = (req, res) => res.render("join", { pageTitle: "Join" });
 
-export const postJoin = async (req, res) => {
+export const postJoin = async (req, res, next) => {
   const {
     body: { name, email, password, password2 }
   } = req;
@@ -16,21 +18,59 @@ export const postJoin = async (req, res) => {
         email
       });
       await User.register(user, password);
+      //register: 새 사용자 인스턴스를 주어진 암호로 등록하는 편리한 방법입니다.(passport local mongoose 에서 제공)
+      next();
     } catch (error) {
       console.log(error);
+      res.redirect(routes.home);
     }
-    res.redirect(routes.home);
   }
 };
 
 export const getLogin = (req, res) =>
   res.render("login", { pageTitle: "Login" });
-export const postLogin = (req, res) => {
+export const postLogin = passport.authenticate("local", {
+  successRedirect: routes.home,
+  failureRedirect: routes.login
+});
+
+export const logout = (req, res) => {
+  req.logout();
   res.redirect(routes.home);
 };
 
-export const logout = (req, res) => {
-  // to Do: Process logout
+export const githubLoginCallback = async (
+  accessToken,
+  refreshToken,
+  profile,
+  cb
+) => {
+  //passport.authenticate("github"); 가 실행 되면 githubLoginCallback 가 실행됨
+  const {
+    _json: { id, avatar_url, name, email }
+  } = profile;
+  try {
+    const user = await User.findOne({ email: email });
+    if (user) {
+      user.githubId = id;
+      user.save();
+      return cb(null, user);
+    }
+    const newUser = await User.create({
+      name: name,
+      email: email,
+      avatarUrl: avatar_url,
+      githubId: id
+    });
+    return cb(null, newUser);
+  } catch (error) {
+    return cb(error);
+  }
+};
+
+export const githubLogin = passport.authenticate("github");
+
+export const postGithubLogin = (req, res) => {
   res.redirect(routes.home);
 };
 

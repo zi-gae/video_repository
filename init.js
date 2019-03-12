@@ -25,3 +25,23 @@ mongoDB manual
 npm install webpack 
 npm install webpack-cli => webpack 을 terminal 에서 사용 할 수 있게 해줌
 */
+
+/*
+npm install passport-local-mongoose
+패스워드 설정, 확인 등등을 자동으로 해줌
+*/
+
+/*
+npm install passport passport-local
+passport-local 이란 username 과 password 를 쓰는 사용자 인증 방식
+*/
+
+/*
+npm install express-session
+express 에서 session 값을 이용하기 위한 패키지
+*/
+
+/*
+npm i connect-mongo
+서버가 재시작하더라도 쿠키 값을 기억하기 위한 패키지
+*/
