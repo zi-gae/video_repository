@@ -10,6 +10,7 @@ const USERS = "/users";
 const USER_DETAIL = "/:id";
 const EDIT_PROFILE = "/edit-profile";
 const CHANGE_PASSWORD = "/change-password";
+const ME = "/me";
 
 // Videos
 const VIDEOS = "/videos";
@@ -17,9 +18,14 @@ const UPLOAD = "/upload";
 const VIDEO_DETAIL = "/:id"; // : 을 붙이면 data 를 받을것임을 암시
 const EDIT_VIDEO = "/:id/edit"; // : 을 붙이면 data를 받을것임을 암시
 const DELETE_VIDEO = "/:id/delete"; // : 을 붙이면 data를 받을것임을 암시
+
 //github
 const GITHUB = "/auth/github";
 const GITHUB_CALLBACK = "/auth/github/callback";
+
+//facebook
+const FB = "/auth/facebook";
+const FB_CALLBACK = "/auth/github/facebookCallback";
 
 const routes = {
   home: HOME,
@@ -61,7 +67,10 @@ const routes = {
     }
   },
   github: GITHUB,
-  githubCallback: GITHUB_CALLBACK
+  githubCallback: GITHUB_CALLBACK,
+  me: ME,
+  facebook: FB,
+  facebookCallback: FB_CALLBACK
 };
 
 export default routes;

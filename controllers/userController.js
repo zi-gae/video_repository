@@ -29,6 +29,7 @@ export const postJoin = async (req, res, next) => {
 
 export const getLogin = (req, res) =>
   res.render("login", { pageTitle: "Login" });
+
 export const postLogin = passport.authenticate("local", {
   successRedirect: routes.home,
   failureRedirect: routes.login
@@ -38,6 +39,9 @@ export const logout = (req, res) => {
   req.logout();
   res.redirect(routes.home);
 };
+
+export const githubLogin = passport.authenticate("github");
+//passsport 의 GithubStrategy 실행
 
 export const githubLoginCallback = async (
   accessToken,
@@ -52,8 +56,7 @@ export const githubLoginCallback = async (
   try {
     const user = await User.findOne({ email: email });
     if (user) {
-      user.githubId = id;
-      user.save();
+      (user.githubId = id), (user.avatarUrl = avatar_url), user.save();
       return cb(null, user);
       //user 정보를 세션에 저장
     }
@@ -69,15 +72,44 @@ export const githubLoginCallback = async (
   }
 };
 
-export const githubLogin = passport.authenticate("github");
-//passsport 의 GithubStrategy 실행
-
 export const postGithubLogin = (req, res) => {
   res.redirect(routes.home);
 };
 
-export const userDetail = (req, res) =>
-  res.render("userDetail", { pageTitle: "User Detail" });
+export const facebookLogin = passport.authenticate("facebook");
+
+export const facebookLoginCallback = (
+  accessToken,
+  refreshToken,
+  profile,
+  cb
+) => {
+  console.log(accessToken, refreshToken, profile, cb);
+};
+
+export const postFacebookLogin = () => {
+  res.redirect(routes.home);
+};
+
+export const getMe = (req, res) => {
+  console.log(req.user);
+  res.render("userDetail", { pageTitle: "User Detail", user: req.user });
+};
+
+export const userDetail = async (req, res) => {
+  const {
+    params: { id }
+  } = req;
+  try {
+    console.log("suc");
+    const user = await User.findById(id);
+    res.render("userDetail", { pageTitle: "User Detail", user });
+  } catch (error) {
+    console.log("fail");
+
+    res.redirect(routes.home);
+  }
+};
 export const editProfile = (req, res) =>
   res.render("editProfile", { pageTitle: "Edit Profile" });
 export const changePassword = (req, res) =>
