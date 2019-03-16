@@ -43,12 +43,7 @@ export const logout = (req, res) => {
 export const githubLogin = passport.authenticate("github");
 //passsport 의 GithubStrategy 실행
 
-export const githubLoginCallback = async (
-  accessToken,
-  refreshToken,
-  profile,
-  cb
-) => {
+export const githubLoginCallback = async (_, __, profile, cb) => {
   //passport.authenticate("github"); 가 실행 되면 githubLoginCallback 가 실행됨
   const {
     _json: { id, avatar_url, name, email }
@@ -73,6 +68,41 @@ export const githubLoginCallback = async (
 };
 
 export const postGithubLogin = (req, res) => {
+  console.log("home 으로 이동");
+  console.log(req.user);
+  res.redirect(routes.home);
+};
+
+export const kakaoLogin = passport.authenticate("kakao");
+
+export const kakaoLoginCallback = async (_, __, profile, done) => {
+  const {
+    _json: { id, properties, kaccount_email }
+  } = profile;
+  const { profile_image, nickname } = properties;
+  try {
+    const user = await User.findOne({ email: kaccount_email });
+    if (user) {
+      (user.kakaoId = id),
+        (user.avatarUrl = profile_image),
+        (user.name = nickname),
+        user.save();
+      done(null, user);
+    } else {
+      const newUser = await User.create({
+        name: nickname,
+        email: kaccount_email,
+        avatarUrl: profile_image,
+        kakaoId: id
+      });
+      done(null, newUser);
+    }
+  } catch (error) {
+    done(error);
+  }
+};
+
+export const postKakaoLogin = (req, res) => {
   res.redirect(routes.home);
 };
 
