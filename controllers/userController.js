@@ -133,15 +133,18 @@ export const userDetail = async (req, res) => {
   try {
     console.log("suc");
     const user = await User.findById(id);
-    res.render("userDetail", { pageTitle: "User Detail", user });
+    res.redirect(routes.users + routes.changePassword);
   } catch (error) {
     console.log("fail");
 
     res.redirect(routes.home);
   }
 };
-export const getEditProfile = (req, res) =>
+export const getEditProfile = (req, res) => {
+  console.log(req.user);
+
   res.render("editProfile", { pageTitle: "Edit Profile" });
+};
 
 export const postEditProfile = async (req, res) => {
   const {
@@ -160,5 +163,23 @@ export const postEditProfile = async (req, res) => {
   }
 };
 
-export const changePassword = (req, res) =>
+export const getChangePassword = (req, res) =>
   res.render("changePassword", { pageTitle: "Change PWD" });
+
+export const postChangePassword = async (req, res) => {
+  const {
+    body: { oldPassword, newPassword, newPassword1 }
+  } = req;
+  try {
+    if (newPassword !== newPassword1) {
+      console.log("fail");
+      res.status(400);
+      return;
+    }
+    await req.user.changePassword(oldPassword, newPassword);
+    console.log("suc");
+  } catch (error) {
+    res.status(400);
+    res.redirect(routes.users + routes.changePassword);
+  }
+};
