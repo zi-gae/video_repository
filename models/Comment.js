@@ -8,6 +8,10 @@ const CommentSchema = new mongoose.Schema({
   createAt: {
     type: Date,
     default: Date.now
+  },
+  creater: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
   }
 });
 
