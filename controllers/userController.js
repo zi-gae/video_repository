@@ -68,7 +68,6 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
 };
 
 export const postGithubLogin = (req, res) => {
-  console.log("home 으로 이동");
   console.log(req.user);
   res.redirect(routes.home);
 };
@@ -98,6 +97,7 @@ export const kakaoLoginCallback = async (_, __, profile, done) => {
       done(null, newUser);
     }
   } catch (error) {
+    console.log(error);
     done(error);
   }
 };
@@ -131,12 +131,9 @@ export const userDetail = async (req, res) => {
     params: { id }
   } = req;
   try {
-    console.log("suc");
     const user = await User.findById(id);
-    res.redirect(routes.users + routes.changePassword);
+    res.render("userDetail", { pageTitle: "User Detail", user });
   } catch (error) {
-    console.log("fail");
-
     res.redirect(routes.home);
   }
 };
@@ -172,14 +169,15 @@ export const postChangePassword = async (req, res) => {
   } = req;
   try {
     if (newPassword !== newPassword1) {
-      console.log("fail");
       res.status(400);
+      res.redirect(routes.users + routes.changePassword);
       return;
     }
     await req.user.changePassword(oldPassword, newPassword);
-    console.log("suc");
+    res.redirect(routes.me);
+    return;
   } catch (error) {
-    res.status(400);
     res.redirect(routes.users + routes.changePassword);
+    return;
   }
 };
