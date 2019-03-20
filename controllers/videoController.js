@@ -52,10 +52,12 @@ export const postUpload = async (req, res) => {
     // 디비에 저장하는 부분
     fileUrl: path,
     title: title,
-    description: description
+    description: description,
+    creator: req.user.id
   });
-  console.log(newVideo);
-
+  req.user.videos.push(newVideo.id);
+  req.user.save();
+  console.log();
   res.redirect(routes.videoDetail(newVideo.id)); // mongodb 는 item 을 저장 할 때 마다 id 값이 default 로 들어감
 };
 
@@ -64,7 +66,8 @@ export const videoDetail = async (req, res) => {
     const {
       params: { id }
     } = req; //id => router 에서 명시해준 name
-    const video = await Video.findById(id);
+    const video = await Video.findById(id).populate("creator");
+    //populate => type 이 objectID 인 것에만 사용 가능
     console.log(video);
     res.render("videoDetail", { pageTitle: video.title, video: video });
   } catch (error) {
