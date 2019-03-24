@@ -49,20 +49,25 @@ const formatDate = seconds => {
   return `${hours}:${minutes}:${totalSeconds}`;
 };
 
-function getCurrentTime() {
-  currentTime.innerHTML = formatDate(videoPlayer.currentTime);
-}
+const getCurrentTime = () => {
+  currentTime.innerHTML = formatDate(Math.floor(videoPlayer.currentTime));
+};
 
-function setTotalTime() {
+const setTotalTime = () => {
   const totalTimeString = formatDate(videoPlayer.duration);
   totalTime.innerHTML = totalTimeString;
   setInterval(getCurrentTime, 1000);
-}
+};
+const handleEnded = () => {
+  videoPlayer.currentTime = 0;
+  toggleIcon(true);
+};
 const init = () => {
   playBtn.addEventListener("click", handlePlayClick);
   voluemBtn.addEventListener("click", handleVolumeClick);
   screenBtn.addEventListener("click", goScreenClick);
   videoPlayer.addEventListener("loadedmetadata", setTotalTime);
+  videoPlayer.addEventListener("ended", handleEnded);
 };
 
 if (videoContainer) {
