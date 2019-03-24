@@ -16,6 +16,7 @@
   .user-profile__btns {
     display: flex;
     flex-direction: column;
+    margin-bottom: 18px;
     align-items: center;
     a:not(:last-child) {
       margin-bottom: 20px;
