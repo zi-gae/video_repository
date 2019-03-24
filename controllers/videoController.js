@@ -57,7 +57,6 @@ export const postUpload = async (req, res) => {
   });
   req.user.videos.push(newVideo.id);
   req.user.save();
-  console.log();
   res.redirect(routes.videoDetail(newVideo.id)); // mongodb 는 item 을 저장 할 때 마다 id 값이 default 로 들어감
 };
 
@@ -68,10 +67,8 @@ export const videoDetail = async (req, res) => {
     } = req; //id => router 에서 명시해준 name
     const video = await Video.findById(id).populate("creator");
     //populate => type 이 objectID 인 것에만 사용 가능
-    console.log(video);
     res.render("videoDetail", { pageTitle: video.title, video: video });
   } catch (error) {
-    console.log(`error: ${error}`);
     res.redirect(routes.home);
   }
 };
@@ -81,11 +78,13 @@ export const getEditVideo = async (req, res) => {
   } = req;
   try {
     const video = await Video.findById(id);
-
-    console.log(video);
-    res.render("editVideo", { pageTitle: `Edit ${video.title}`, video });
+    if (req.user !== video.creator) {
+      throw Error();
+    } else {
+      res.render("editVideo", { pageTitle: `Edit ${video.title}`, video });
+    }
   } catch (error) {
-    res.render(routes.home);
+    res.redirect(routes.home);
   }
 };
 
@@ -110,7 +109,12 @@ export const deleteVideo = async (req, res) => {
     params: { id }
   } = req;
   try {
-    await Video.findOneAndDelete({ _id: id });
+    const video = await Video.findById(id);
+    if (req.user !== video.creator) {
+      throw Error();
+    } else {
+      await Video.findOneAndDelete({ _id: id });
+    }
   } catch (error) {
     console.log(error);
   } finally {
