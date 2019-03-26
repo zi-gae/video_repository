@@ -1,6 +1,6 @@
 import routes from "../routes";
 import Video from "../models/Video";
-
+import Comment from "../models/Comment";
 export const home = async (req, res) => {
   try {
     const videos = await Video.find({});
@@ -65,7 +65,9 @@ export const videoDetail = async (req, res) => {
     const {
       params: { id }
     } = req; //id => router 에서 명시해준 name
-    const video = await Video.findById(id).populate("creator");
+    const video = await Video.findById(id)
+      .populate("creator")
+      .populate("comments");
     //populate => type 이 objectID 인 것에만 사용 가능
     res.render("videoDetail", { pageTitle: video.title, video: video });
   } catch (error) {
@@ -77,8 +79,8 @@ export const getEditVideo = async (req, res) => {
     params: { id }
   } = req;
   try {
-    const video = await Video.findById(id);
-    if (req.user !== video.creator) {
+    const video = await Video.findById(id).populate("creator");
+    if (req.user.id !== video.creator.id) {
       throw Error();
     } else {
       res.render("editVideo", { pageTitle: `Edit ${video.title}`, video });
@@ -94,6 +96,7 @@ export const postEditVideo = async (req, res) => {
     params: { id }
   } = req;
   try {
+    console.log("post");
     await Video.findOneAndUpdate(id, {
       title: title,
       description: description
@@ -109,8 +112,8 @@ export const deleteVideo = async (req, res) => {
     params: { id }
   } = req;
   try {
-    const video = await Video.findById(id);
-    if (req.user !== video.creator) {
+    const video = await Video.findById(id).populate("creator");
+    if (req.user.id !== video.creator.id) {
       throw Error();
     } else {
       await Video.findOneAndDelete({ _id: id });
@@ -132,6 +135,35 @@ export const registerView = async (req, res) => {
     video.views += 1;
     video.save();
     console.log("test log: ", video.view);
+
+    res.status(200);
+  } catch (error) {
+    res.status(400);
+  } finally {
+    res.end();
+  }
+};
+
+export const postAddCommnent = async (req, res) => {
+  const {
+    params: { id },
+    body: { comment },
+    user
+  } = req;
+
+  try {
+    const video = await Video.findById(id);
+    const newComment = await Comment.create({
+      text: comment,
+      creator: user.id,
+      name: user.name,
+      avatarUrl: user.avatarUrl,
+      id: user.id
+    });
+    console.log();
+
+    video.comments.push(newComment.id);
+    video.save();
 
     res.status(200);
   } catch (error) {

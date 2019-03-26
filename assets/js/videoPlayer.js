@@ -10,7 +10,6 @@ const totalTime = document.getElementById("totalTime");
 
 const regisgerView = () => {
   const videoId = window.location.href.split("/videos/")[1];
-
   fetch(`/api/${videoId}/view`, {
     method: "POST"
   });

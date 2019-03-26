@@ -132,15 +132,14 @@ export const userDetail = async (req, res) => {
   } = req;
   try {
     const user = await User.findById(id).populate("videos");
-    res.render("userDetail", { pageTitle: "User Detail", user });
+    if (req.user.id === id) res.redirect(routes.me);
+    else res.render("userDetail", { pageTitle: "User Detail", user });
   } catch (error) {
     res.redirect(routes.home);
   }
 };
 export const getEditProfile = (req, res) => {
-  console.log(req.user);
-
-  res.render("editProfile", { pageTitle: "Edit Profile" });
+  res.render("editProfile", { pageTitle: "Edit Profile", user: req.user });
 };
 
 export const postEditProfile = async (req, res) => {
