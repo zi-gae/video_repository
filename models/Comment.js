@@ -5,11 +5,13 @@ const CommentSchema = new mongoose.Schema({
     type: String,
     required: "text is required"
   },
+  name: String,
+  avatarUrl: String,
   createAt: {
     type: Date,
     default: Date.now
   },
-  creater: {
+  creator: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"
   }
