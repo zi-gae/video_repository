@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const videoContainer = document.getElementById("jsVideoPlayer");
 const videoPlayer = document.querySelector("#jsVideoPlayer video");
 const playBtn = document.getElementById("jsPlayButton");
@@ -5,6 +7,15 @@ const voluemBtn = document.getElementById("jsVolumeButton");
 const screenBtn = document.getElementById("jsScreenButton");
 const currentTime = document.getElementById("currentTime");
 const totalTime = document.getElementById("totalTime");
+
+const regisgerView = () => {
+  const videoId = window.location.href.split("/videos/")[1];
+
+  fetch(`/api/${videoId}/view`, {
+    method: "POST"
+  });
+  console.log(videoId);
+};
 
 const toggleIcon = (playTF, muteTF) => {
   const playIcon = document.getElementById("jsPlayIcon");
@@ -19,7 +30,9 @@ const toggleIcon = (playTF, muteTF) => {
     : (muteIcon.className = "fas fa-volume-up");
 };
 const handlePlayClick = () => {
-  videoPlayer.paused ? videoPlayer.play() : videoPlayer.pause();
+  videoPlayer.paused
+    ? (videoPlayer.play(), regisgerView())
+    : videoPlayer.pause();
   toggleIcon(videoPlayer.paused);
 };
 
