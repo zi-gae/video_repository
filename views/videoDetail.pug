@@ -26,10 +26,20 @@ block content
             else
                 span.video__comment-number 댓글 #{video.comments.length}개
         .form
-            form(action='#')
+            form#jsAddcomment
                 .text-input
                     label(for='username')
                     input#username(type='text', name='username', placeholder='댓글을 입력하세요..')
-                    span.separator  
-                .form-bottom
-                    input#submit(type='submit', value='Submit')
+                    span.separator
+            br
+            section.comments
+                each comment in video.comments.reverse()
+                    article.comment
+                        img(src=comment.avatarUrl, alt='', width='50', height='50')
+                        .comment-body
+                        .text
+                            p=comment.text
+                        p.attribution
+                            | by #{comment.name}
+                            //- | #{comment.createAt}
+                    
