@@ -11,8 +11,6 @@ import {
   githubLogin,
   postGithubLogin,
   getMe,
-  facebookLogin,
-  postFacebookLogin,
   kakaoLogin,
   postKakaoLogin
 } from "../controllers/userController";
@@ -36,13 +34,6 @@ globalRouter.get(
   routes.githubCallback,
   passport.authenticate("github", { failureRedirect: routes.login }),
   postGithubLogin
-);
-
-globalRouter.get(routes.facebook, facebookLogin);
-globalRouter.get(
-  routes.facebookCallback,
-  passport.authenticate("facebook", { failureRedirect: routes.login }),
-  postFacebookLogin
 );
 
 globalRouter.get(routes.kakao, kakaoLogin);

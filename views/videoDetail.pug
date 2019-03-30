@@ -29,14 +29,13 @@ block content
             form#jsAddcomment
                 .text-input
                     label(for='username')
-                    input#username(type='text', name='username', placeholder='댓글을 입력하세요..')
+                    input#username(type='text', name='comment', placeholder='댓글을 입력하세요..')
                     span.separator
             br
-            section.comments
+            .comments
                 each comment in video.comments.reverse()
                     article.comment
                         img(src=comment.avatarUrl, alt='', width='50', height='50')
-                        .comment-body
                         .text
                             p=comment.text
                         p.attribution

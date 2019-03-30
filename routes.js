@@ -23,10 +23,6 @@ const DELETE_VIDEO = "/:id/delete"; // : 을 붙이면 data를 받을것임을 �
 const GITHUB = "/auth/github";
 const GITHUB_CALLBACK = "/auth/github/callback";
 
-//facebook
-const FB = "/auth/facebook";
-const FB_CALLBACK = "/auth/facebook/facebookCallback";
-
 //kakaotalk
 const KAKAO = "/auth/kakao";
 const KAKAO_CALLBACK = "/auth/kakao/callback";
@@ -34,8 +30,6 @@ const KAKAO_CALLBACK = "/auth/kakao/callback";
 //API
 const API = "/api";
 const REGISTER_VIEW = "/:id/view";
-
-//Comment
 const ADD_COMMENT = "/:id/comment";
 
 const routes = {
@@ -80,8 +74,6 @@ const routes = {
   github: GITHUB,
   githubCallback: GITHUB_CALLBACK,
   me: ME,
-  facebook: FB,
-  facebookCallback: FB_CALLBACK,
   kakao: KAKAO,
   kakaoCallback: KAKAO_CALLBACK,
   api: API,
