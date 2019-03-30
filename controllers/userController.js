@@ -68,7 +68,6 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
 };
 
 export const postGithubLogin = (req, res) => {
-  console.log(req.user);
   res.redirect(routes.home);
 };
 
@@ -106,21 +105,6 @@ export const postKakaoLogin = (req, res) => {
   res.redirect(routes.home);
 };
 
-export const facebookLogin = passport.authenticate("facebook");
-
-export const facebookLoginCallback = (
-  accessToken,
-  refreshToken,
-  profile,
-  cb
-) => {
-  console.log(accessToken, refreshToken, profile, cb);
-};
-
-export const postFacebookLogin = () => {
-  res.redirect(routes.home);
-};
-
 export const getMe = async (req, res) => {
   const user = await User.findById(req.user.id).populate("videos");
   res.render("userDetail", { pageTitle: "User Detail", user });
@@ -151,7 +135,7 @@ export const postEditProfile = async (req, res) => {
     await User.findByIdAndUpdate(req.user.id, {
       name,
       email,
-      avatarUrl: file ? file.path : req.user.avatarUrl
+      avatarUrl: file ? file.location : req.user.avatarUrl
     });
     res.redirect(routes.me);
   } catch (error) {

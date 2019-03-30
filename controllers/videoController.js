@@ -9,7 +9,6 @@ export const home = async (req, res) => {
     // 데이터베이스에 오류가 발생하면 HTTP Status 500 과 함께 에러를 출력합니다
     res.render("home", { pageTitle: "Home", videos });
   } catch (error) {
-    console.log(error);
     res.render("home", { pageTitle: "Home", videos: [] });
     //데이터가 디비에 없을때
   }
@@ -46,11 +45,12 @@ export const getUpload = (req, res) =>
 export const postUpload = async (req, res) => {
   const {
     body: { title, description },
-    file: { path } // req.file 에 업로드 하려는 파일의 정보가 담겨 있음.
+    file: { location } // req.file 에 업로드 하려는 파일의 정보가 담겨 있음.
   } = req;
+  //multer 가 로컬 서버에 저장할때는 path가 필요하지만 외부 서버에 저장할때는 location 이 필요
   const newVideo = await Video.create({
     // 디비에 저장하는 부분
-    fileUrl: path,
+    fileUrl: location,
     title: title,
     description: description,
     creator: req.user.id
@@ -96,7 +96,6 @@ export const postEditVideo = async (req, res) => {
     params: { id }
   } = req;
   try {
-    console.log("post");
     await Video.findOneAndUpdate(id, {
       title: title,
       description: description
@@ -134,7 +133,6 @@ export const registerView = async (req, res) => {
     const video = await Video.findById(id);
     video.views += 1;
     video.save();
-    console.log("test log: ", video.view);
 
     res.status(200);
   } catch (error) {
@@ -144,7 +142,7 @@ export const registerView = async (req, res) => {
   }
 };
 
-export const postAddCommnent = async (req, res) => {
+export const postAddComment = async (req, res) => {
   const {
     params: { id },
     body: { comment },
@@ -160,7 +158,6 @@ export const postAddCommnent = async (req, res) => {
       avatarUrl: user.avatarUrl,
       id: user.id
     });
-    console.log();
 
     video.comments.push(newComment.id);
     video.save();

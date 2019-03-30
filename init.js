@@ -45,3 +45,10 @@ express 에서 session 값을 이용하기 위한 패키지
 npm i connect-mongo
 서버가 재시작하더라도 쿠키 값을 기억하기 위한 패키지
 */
+
+/*
+npm i aws-sdk
+npm i multer-s3
+
+
+*/
