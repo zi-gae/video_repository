@@ -1,14 +1,23 @@
 import routes from "../routes";
 import Video from "../models/Video";
 import Comment from "../models/Comment";
+import User from "../models/User";
+
 export const home = async (req, res) => {
   try {
     const videos = await Video.find({});
+
     // 데이터를 조회 할 때는 find() 메소드가 사용됩니다.
     // query를 파라미터 값으로 전달 할 수 있으며, 파라미터가 없을 시, 모든 데이터를 조회합니다.
     // 데이터베이스에 오류가 발생하면 HTTP Status 500 과 함께 에러를 출력합니다
-    res.render("home", { pageTitle: "Home", videos });
+    if (req.user.authApply) {
+      res.render("home", { pageTitle: "Home", videos });
+    } else {
+      res.render("authPage");
+    }
   } catch (error) {
+    console.log("err", error);
+
     res.render("home", { pageTitle: "Home", videos: [] });
     //데이터가 디비에 없을때
   }

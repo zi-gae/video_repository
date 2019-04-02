@@ -91,7 +91,8 @@ export const kakaoLoginCallback = async (_, __, profile, done) => {
         name: nickname,
         email: kaccount_email,
         avatarUrl: profile_image,
-        kakaoId: id
+        kakaoId: id,
+        authApply: false
       });
       done(null, newUser);
     }
