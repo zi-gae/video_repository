@@ -12,7 +12,7 @@ block content
             h5.video__title=video.title
             if video.views === 1
                 span.video__views 조회수 1 회
-            else 
+            else
                 span.video__views 조회수 #{video.views} 회
             hr
             p.video__description 설명: #{video.description}
@@ -41,4 +41,3 @@ block content
                         p.attribution
                             | by #{comment.name}
                             //- | #{comment.createAt}
-                    
