@@ -59,7 +59,8 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
       name: name,
       email: email,
       avatarUrl: avatar_url,
-      githubId: id
+      githubId: id,
+      authApply: false
     });
     return cb(null, newUser);
   } catch (error) {
@@ -164,4 +165,10 @@ export const postChangePassword = async (req, res) => {
     res.redirect(routes.users + routes.changePassword);
     return;
   }
+};
+
+export const getAuth = async (req, res) => {
+  const user = await User.find({});
+  console.log("user: ", user);
+  res.render("authPage", { user });
 };

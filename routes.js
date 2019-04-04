@@ -5,6 +5,10 @@ const LOGIN = "/login";
 const LOGOUT = "/logout";
 const SEARCH = "/search";
 
+//Auth
+
+const AUTH = "/auth";
+
 // Users
 const USERS = "/users";
 const USER_DETAIL = "/:id";
@@ -78,7 +82,8 @@ const routes = {
   kakaoCallback: KAKAO_CALLBACK,
   api: API,
   registerView: REGISTER_VIEW,
-  addComment: ADD_COMMENT
+  addComment: ADD_COMMENT,
+  auth: AUTH
 };
 
 export default routes;

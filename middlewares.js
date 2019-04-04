@@ -52,8 +52,14 @@ export const onlyPrivate = (req, res, next) => {
   }
 };
 
-export const onlyAuthUser = (req, res, next) => {
-  if (req.user.authApply) {
+export const onlyAdmin = (req, res, next) => {
+  if (
+    req.user.email === "doscm164@naver.com" ||
+    req.user.email === "doscmDev@gmail.com"
+  ) {
+    next();
+  } else {
+    res.redirect(routes.home);
   }
 };
 

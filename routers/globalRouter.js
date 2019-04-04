@@ -12,9 +12,10 @@ import {
   postGithubLogin,
   getMe,
   kakaoLogin,
-  postKakaoLogin
+  postKakaoLogin,
+  getAuth
 } from "../controllers/userController";
-import { onlyPublic, test } from "../middlewares";
+import { onlyPublic, test, onlyAdmin } from "../middlewares";
 
 const globalRouter = express.Router();
 
@@ -46,5 +47,7 @@ globalRouter.get(
 );
 
 globalRouter.get(routes.me, getMe);
+
+globalRouter.get(routes.auth, onlyAdmin, getAuth);
 
 export default globalRouter;
