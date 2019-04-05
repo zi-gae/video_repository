@@ -124,7 +124,7 @@
       font-size: 14px;
     }
     .video__description {
-      padding-top: 10px;
+      padding-top: 2em;
       font-size: 16px;
     }
     .video__author {
@@ -137,6 +137,7 @@
   .video__comments {
     position: relative;
     right: -20px;
+    padding-top: 2em;
     margin-top: 25px;
     .video__comment-number {
       font-size: 18px;

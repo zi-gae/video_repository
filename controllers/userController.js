@@ -15,7 +15,8 @@ export const postJoin = async (req, res, next) => {
     try {
       const user = await User({
         name,
-        email
+        email,
+        authApply: false
       });
       await User.register(user, password);
       //register: 새 사용자 인스턴스를 주어진 암호로 등록하는 편리한 방법입니다.(passport local mongoose 에서 제공)
@@ -49,9 +50,15 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
     _json: { id, avatar_url, name, email }
   } = profile;
   try {
+    if (email === null || name === null) {
+      throw error();
+    }
     const user = await User.findOne({ email: email });
     if (user) {
       (user.githubId = id), (user.avatarUrl = avatar_url), user.save();
+      console.log("github one");
+      console.log(user);
+
       return cb(null, user);
       //user 정보를 세션에 저장
     }
@@ -62,6 +69,8 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
       githubId: id,
       authApply: false
     });
+    console.log("github two");
+
     return cb(null, newUser);
   } catch (error) {
     return cb(error);
@@ -169,6 +178,7 @@ export const postChangePassword = async (req, res) => {
 
 export const getAuth = async (req, res) => {
   const user = await User.find({});
-  console.log("user: ", user);
-  res.render("authPage", { user });
+  console.log(user);
+
+  res.render("authPage", { user: user });
 };

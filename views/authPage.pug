@@ -7,15 +7,16 @@ html
     meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel="stylesheet", href="../../static/style.css")
   body
-    figure.snip1344
-      img.background(src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/profile-sample1.jpg', alt='profile-sample1')
-      img.profile(src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/profile-sample1.jpg', alt='profile-sample1')
-      figcaption
-        h3
-          | Ursula Gurnmeister
-          span Engineer
-        .icons
-          a(href='#')
-            i.ion-social-reddit-outline
-              button 
-   
+    each users in user
+      if users.email !== "doscm164@naver.com" && !users.authApply
+        figure.snip1344
+          img.background(src=users.avatarUrl)
+          img.profile(src=users.avatarUrl)
+          figcaption
+            h3
+              | #{users.email}
+              span #{users.name}
+            .icons
+              a(href='#')
+                i.ion-social-reddit-outline
+                  button false
