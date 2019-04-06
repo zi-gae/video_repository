@@ -15,7 +15,7 @@ import {
   postKakaoLogin,
   getAuth
 } from "../controllers/userController";
-import { onlyPublic, test, onlyAdmin } from "../middlewares";
+import { onlyPublic, onlyAdmin } from "../middlewares";
 
 const globalRouter = express.Router();
 
