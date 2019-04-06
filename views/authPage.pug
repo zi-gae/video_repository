@@ -7,16 +7,20 @@ html
     meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel="stylesheet", href="../../static/style.css")
   body
-    each users in user
-      if users.email !== "doscm164@naver.com" && !users.authApply
+    each users, index in user
+      if users.email !== "doscm164@naver.com"
         figure.snip1344
           img.background(src=users.avatarUrl)
           img.profile(src=users.avatarUrl)
           figcaption
-            h3
+            h3(id="jsEmail"+index)
               | #{users.email}
               span #{users.name}
             .icons
               a(href='#')
                 i.ion-social-reddit-outline
-                  button false
+                  if users.authApply
+                    button.buttonCheck(id=index) true
+                  else
+                    button.buttonCheck(id=index) false
+    script(src="../static/main.js")

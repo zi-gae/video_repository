@@ -6,7 +6,6 @@ const LOGOUT = "/logout";
 const SEARCH = "/search";
 
 //Auth
-
 const AUTH = "/auth";
 
 // Users
@@ -35,6 +34,7 @@ const KAKAO_CALLBACK = "/auth/kakao/callback";
 const API = "/api";
 const REGISTER_VIEW = "/:id/view";
 const ADD_COMMENT = "/:id/comment";
+const AUTH_APLLY = "/:id/auth";
 
 const routes = {
   home: HOME,
@@ -83,7 +83,8 @@ const routes = {
   api: API,
   registerView: REGISTER_VIEW,
   addComment: ADD_COMMENT,
-  auth: AUTH
+  auth: AUTH,
+  authApply: AUTH_APLLY
 };
 
 export default routes;
