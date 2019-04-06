@@ -11,7 +11,6 @@ const regisgerView = () => {
   fetch(`/api/${videoId}/view`, {
     method: "POST"
   });
-  console.log(videoId);
 };
 
 const toggleIcon = (playTF, muteTF) => {
