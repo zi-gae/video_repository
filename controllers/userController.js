@@ -10,7 +10,7 @@ export const postJoin = async (req, res, next) => {
   } = req;
   if (password !== password2) {
     res.status(400); // 정보가 잘못됬다는 state code http 400
-    res.render("join", { pageTitle: "Join" });
+    res.rendser("join", { pageTitle: "Join" });
   } else {
     try {
       const user = await User({
@@ -56,9 +56,6 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
     const user = await User.findOne({ email: email });
     if (user) {
       (user.githubId = id), (user.avatarUrl = avatar_url), user.save();
-      console.log("github one");
-      console.log(user);
-
       return cb(null, user);
       //user 정보를 세션에 저장
     }
@@ -69,8 +66,6 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
       githubId: id,
       authApply: false
     });
-    console.log("github two");
-
     return cb(null, newUser);
   } catch (error) {
     return cb(error);
@@ -178,7 +173,16 @@ export const postChangePassword = async (req, res) => {
 
 export const getAuth = async (req, res) => {
   const user = await User.find({});
-  console.log(user);
-
   res.render("authPage", { user: user });
+};
+
+export const postAuthApply = async (req, res) => {
+  const {
+    body: { email }
+  } = req;
+  try {
+    await User.updateOne({ email }, { $set: { authApply: true } });
+  } catch (error) {
+    console.log(error);
+  }
 };
