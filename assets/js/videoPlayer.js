@@ -77,6 +77,10 @@ const init = () => {
   screenBtn.addEventListener("click", goScreenClick);
   videoPlayer.addEventListener("loadedmetadata", setTotalTime);
   videoPlayer.addEventListener("ended", handleEnded);
+
+  if (videoPlayer.readyState >= 2) {
+    setTotalTime();
+  }
 };
 
 if (videoContainer) {
