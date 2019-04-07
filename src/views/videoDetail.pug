@@ -1,0 +1,40 @@
+extends layouts/main
+include mixins/videoPlayer
+block content
+    .video-detail__container
+        +videoPlayer({
+            src:video.fileUrl
+        })
+        .video__info
+            if loggedUser && (video.creator.id === loggedUser.id)
+                a(href=routes.editVideo(video.id))
+                    button Edit video
+            h5.video__title=video.title
+            if video.views === 1
+                span.video__views 조회수 1 회
+            else
+                span.video__views 조회수 #{video.views} 회
+            p.video__description 설명: #{video.description}
+            .video__author
+                |게시자:  
+                a(href=routes.userDetail(video.creator.id))=video.creator.name
+        .video__comments
+            if video.comments.length === 1
+                span.video__comment-number 댓글 1개
+            else
+                span.video__comment-number 댓글 #{video.comments.length}개
+        .form
+            form#jsAddcomment
+                .text-input
+                    label(for='username')
+                    input#username(type='text', name='comment', placeholder='댓글을 입력하세요..')
+                    span.separator
+            br
+            .comments
+                each comment in video.comments.reverse()
+                    article.comment
+                        img(src=comment.avatarUrl, alt='', width='50', height='50')
+                        .text
+                            p=comment.text
+                        p.attribution
+                            | by #{comment.name}

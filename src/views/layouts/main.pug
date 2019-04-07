@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        link(rel="stylesheet", href="https://use.fontawesome.com/releases/v5.6.3/css/all.css", integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/", crossorigin="anonymous")
+        title #{pageTitle} | #{siteName}
+        link(rel="stylesheet", href="../../static/style.css")
+    body
+        include ../partials/header
+        main
+            block content
+        include ../partials/footer.pug
+        script(src="../../static/main.js")

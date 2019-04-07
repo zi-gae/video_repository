@@ -8,6 +8,7 @@ import videoRouter from "./routers/videoRouter";
 import globalRouter from "./routers/globalRouter";
 import apiRouter from "./routers/apiRouter";
 import routes from "./routes";
+import path from "path";
 import session from "express-session";
 import { localsMiddleware } from "./middlewares";
 import passport from "passport";
@@ -25,8 +26,8 @@ app.use(bodyParser.json()); // post 방식으로 넘어가는 데이터 json 타
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan("dev")); // 접근 방법 및 접근하는데 걸린시간 console 에 나타냄
 app.use(helmet()); // 보안 관련 middleware
-app.use("/uploads", express.static("uploads")); // /uploads 경로에서 uploads 라는 폴더에 있는 파일을 제공 할 수 있다.
-app.use("/static", express.static("static"));
+app.set("views", path.join(__dirname, "views"));
+app.use("/static", express.static(path.join(__dirname, "static")));
 
 // express.static() => 주어진 directory 에서 file을 보내주는 middleware
 app.use(

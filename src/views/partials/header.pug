@@ -1,0 +1,22 @@
+header.header
+    .header__wrapper
+        div.header__column 
+            a(href=routes.home)
+                i.fas.fa-video
+        .header__column
+            form(action=routes.search, method="get" )
+                input(type="text" placeholder="Search ..." name="term")
+        .header__column
+            ul
+                if !loggedUser
+                    li
+                        a(href=routes.join) Join
+                    li
+                        a(href=routes.login) Log in
+                else
+                    li
+                        a(href=routes.videos+routes.upload) Upload
+                    li
+                        a(href=routes.me) Profile
+                    li
+                        a(href=routes.logout) Logout        
