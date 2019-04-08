@@ -17,7 +17,7 @@ passport.use(
       clientID: process.env.GH_ID,
       clientSecret: process.env.GH_SECRET,
       callbackURL: process.env.PRODUCTION
-        ? `https://murmuring-beyond-99105.herokuapp.com${routes.githubCallback}`
+        ? `https://null-repository.herokuapp.com${routes.githubCallback}`
         : `http://localhost:4000${routes.githubCallback}`
     },
     githubLoginCallback
@@ -28,7 +28,7 @@ passport.use(
     {
       clientID: process.env.KAKAO_ID,
       callbackURL: process.env.PRODUCTION
-        ? `https://murmuring-beyond-99105.herokuapp.com${routes.kakaoCallback}`
+        ? `https://null-repository.herokuapp.com${routes.kakaoCallback}`
         : `http://localhost:4000${routes.kakaoCallback}`
     },
     kakaoLoginCallback

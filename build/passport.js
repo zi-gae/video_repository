@@ -29,7 +29,7 @@ _passport["default"].use(new _passportGithub["default"]({
 
 _passport["default"].use(new _passportKakao["default"]({
   clientID: process.env.KAKAO_ID,
-  callbackURL: process.env.PRODUCTION ? "https://murmuring-beyond-99105.herokuapp.com".concat(_routes["default"].githubCallback) : "http://localhost:4000".concat(_routes["default"].githubCallback)
+  callbackURL: process.env.PRODUCTION ? "https://murmuring-beyond-99105.herokuapp.com".concat(_routes["default"].kakaoCallback) : "http://localhost:4000".concat(_routes["default"].kakaoCallback)
 }, _userController.kakaoLoginCallback));
 
 _passport["default"].serializeUser(_User["default"].serializeUser());
