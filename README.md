@@ -2,7 +2,10 @@
 
 ## page :
 
+```
 - [x] Home
+```
+
 - [x] Join
 - [x] Login
 - [x] Search
