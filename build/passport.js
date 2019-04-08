@@ -6,8 +6,6 @@ var _User = _interopRequireDefault(require("./models/User"));
 
 var _passportGithub = _interopRequireDefault(require("passport-github"));
 
-var _passportFacebook = _interopRequireDefault(require("passport-facebook"));
-
 var _passportKakao = _interopRequireDefault(require("passport-kakao"));
 
 var _userController = require("./controllers/userController");
@@ -26,12 +24,12 @@ _passport["default"].use(_User["default"].createStrategy()); //strategy: 로그�
 _passport["default"].use(new _passportGithub["default"]({
   clientID: process.env.GH_ID,
   clientSecret: process.env.GH_SECRET,
-  callbackURL: "https://murmuring-beyond-99105.herokuapp.com/".concat(_routes["default"].githubCallback)
+  callbackURL: process.env.PRODUCTION ? "https://murmuring-beyond-99105.herokuapp.com".concat(_routes["default"].githubCallback) : "http://localhost:4000".concat(_routes["default"].githubCallback)
 }, _userController.githubLoginCallback));
 
 _passport["default"].use(new _passportKakao["default"]({
   clientID: process.env.KAKAO_ID,
-  callbackURL: "https://murmuring-beyond-99105.herokuapp.com/".concat(_routes["default"].kakaoCallback)
+  callbackURL: process.env.PRODUCTION ? "https://murmuring-beyond-99105.herokuapp.com".concat(_routes["default"].githubCallback) : "http://localhost:4000".concat(_routes["default"].githubCallback)
 }, _userController.kakaoLoginCallback));
 
 _passport["default"].serializeUser(_User["default"].serializeUser());

@@ -1,7 +1,6 @@
 import passport from "passport";
 import User from "./models/User";
 import GithubStrategy from "passport-github";
-import FacebookStrategy from "passport-facebook";
 import KakaoStrategy from "passport-kakao";
 import {
   githubLoginCallback,
