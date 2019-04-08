@@ -9,7 +9,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 _dotenv["default"].config(); //env파일의 variable 들을 process.env.key 로 저장
 
 
-_mongoose["default"].connect(process.env.MONGO_URL_PROD, {
+_mongoose["default"].connect(process.env.PRODUCTION ? process.env.MONGO_URL_PROD : process.env.MONGO_URL, {
   useNewUrlParser: true,
   useFindAndModify: false
 });
