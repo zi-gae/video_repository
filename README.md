@@ -1,14 +1,14 @@
 # Video Repository
 
 ## page :
-- [ ] Home
+
+- [x] Home
 - [x] Join
 - [x] Login
 - [x] Search
-- [ ] User Detail
-- [ ] Edit Profile
-- [ ] Chage Password
-- [ ] Upload
-- [ ] Vide Detail
-- [ ] Edit Video
-
+- [x] User Detail
+- [x] Edit Profile
+- [x] Chage Password
+- [x] Upload
+- [x] Vide Detail
+- [x] Edit Video

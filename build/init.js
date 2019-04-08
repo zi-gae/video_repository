@@ -1,5 +1,7 @@
 "use strict";
 
+require("@babel/polyfill");
+
 var _app = _interopRequireDefault(require("./app"));
 
 require("./db");
