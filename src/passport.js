@@ -28,8 +28,8 @@ passport.use(
     {
       clientID: process.env.KAKAO_ID,
       callbackURL: process.env.PRODUCTION
-        ? `https://murmuring-beyond-99105.herokuapp.com${routes.githubCallback}`
-        : `http://localhost:4000${routes.githubCallback}`
+        ? `https://murmuring-beyond-99105.herokuapp.com${routes.kakaoCallback}`
+        : `http://localhost:4000${routes.kakaoCallback}`
     },
     kakaoLoginCallback
   )
