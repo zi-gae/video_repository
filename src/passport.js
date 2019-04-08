@@ -17,9 +17,9 @@ passport.use(
     {
       clientID: process.env.GH_ID,
       clientSecret: process.env.GH_SECRET,
-      callbackURL: `https://murmuring-beyond-99105.herokuapp.com/${
-        routes.githubCallback
-      }`
+      callbackURL: process.env.PRODUCTION
+        ? `https://murmuring-beyond-99105.herokuapp.com${routes.githubCallback}`
+        : `http://localhost:4000${routes.githubCallback}`
     },
     githubLoginCallback
   )
@@ -28,9 +28,9 @@ passport.use(
   new KakaoStrategy(
     {
       clientID: process.env.KAKAO_ID,
-      callbackURL: `https://murmuring-beyond-99105.herokuapp.com/${
-        routes.kakaoCallback
-      }`
+      callbackURL: process.env.PRODUCTION
+        ? `https://murmuring-beyond-99105.herokuapp.com${routes.githubCallback}`
+        : `http://localhost:4000${routes.githubCallback}`
     },
     kakaoLoginCallback
   )

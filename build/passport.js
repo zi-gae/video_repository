@@ -26,12 +26,12 @@ _passport["default"].use(_User["default"].createStrategy()); //strategy: 로그�
 _passport["default"].use(new _passportGithub["default"]({
   clientID: process.env.GH_ID,
   clientSecret: process.env.GH_SECRET,
-  callbackURL: "http://localhost:4000".concat(_routes["default"].githubCallback)
+  callbackURL: "https://murmuring-beyond-99105.herokuapp.com/".concat(_routes["default"].githubCallback)
 }, _userController.githubLoginCallback));
 
 _passport["default"].use(new _passportKakao["default"]({
   clientID: process.env.KAKAO_ID,
-  callbackURL: "http://localhost:4000".concat(_routes["default"].kakaoCallback)
+  callbackURL: "https://murmuring-beyond-99105.herokuapp.com/".concat(_routes["default"].kakaoCallback)
 }, _userController.kakaoLoginCallback));
 
 _passport["default"].serializeUser(_User["default"].serializeUser());
