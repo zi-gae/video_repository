@@ -88,3 +88,4 @@ uploads
 
 yarn.lock
 build
+.DS_Store
