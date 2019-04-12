@@ -25,7 +25,6 @@ const init = () => {
 const handleAuthClick = async () => {
   const index = event.target.id * 1;
   const email = emails[index].split("<span>")[0];
-  console.log(email);
   const response = await axios({
     url: `/api/${email}/auth`,
     method: "POST",

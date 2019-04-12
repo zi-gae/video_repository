@@ -184,5 +184,6 @@ export const postAuthApply = async (req, res) => {
     await User.updateOne({ email }, { $set: { authApply: true } });
   } catch (error) {
     console.log(error);
+    res.redirect(routes.home);
   }
 };
