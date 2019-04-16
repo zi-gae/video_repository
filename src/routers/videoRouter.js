@@ -12,8 +12,14 @@ import { uploadVideo, onlyPrivate } from "../middlewares";
 
 const videoRouter = express.Router();
 // Upload
-videoRouter.get(routes.upload, onlyPrivate, getUpload);
-videoRouter.post(routes.upload, onlyPrivate, uploadVideo, postUpload);
+videoRouter.get(routes.upload, onlyPrivate, onlyAuthUser, getUpload);
+videoRouter.post(
+  routes.upload,
+  onlyPrivate,
+  uploadVideo,
+  onlyAuthUser,
+  postUpload
+);
 // 사용자가 post 방식으로 전송한 데이터가 routes.upload 방향을 가르킨다면 uploadVideo 실행 후 postUpload 실행
 
 // Video Detail
