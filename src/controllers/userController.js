@@ -184,7 +184,7 @@ export const postAuthApply = async (req, res) => {
     // const user = await User.findOne({ email });
     // user.authApply
     //   ? await User.updateOne({ email }, { $set: { authApply: false } })
-    //   : await User.updateOne({ email }, { $set: { authApply: true } });
+    await User.updateOne({ email }, { $set: { authApply: true } });
   } catch (error) {
     console.log(error);
     res.redirect(routes.home);
