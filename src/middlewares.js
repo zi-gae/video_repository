@@ -63,6 +63,14 @@ export const onlyAdmin = (req, res, next) => {
   }
 };
 
+export const onlyAuthUser = (req, res, next) => {
+  if (req.user.authApply) {
+    next();
+  } else {
+    res.redirect(routes.home);
+  }
+};
+
 // single() => 하나의 파일만 업로드 할 수 있다는 함수
 // 사용자가 전송한 데이터에서 파일이 포함 되어 있다면
 // 파일을 가공해서 req.file 이라는 프로퍼티를 암시적으로 추가하는 미들웨어
