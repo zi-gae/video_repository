@@ -64,9 +64,13 @@ export const onlyAdmin = (req, res, next) => {
 };
 
 export const onlyAuthUser = (req, res, next) => {
-  if (req.user.authApply) {
-    next();
-  } else {
+  try {
+    if (req.user.authApply) {
+      next();
+    } else {
+      res.redirect(routes.home);
+    }
+  } catch (error) {
     res.redirect(routes.home);
   }
 };

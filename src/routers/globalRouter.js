@@ -15,7 +15,7 @@ import {
   postKakaoLogin,
   getAuth
 } from "../controllers/userController";
-import { onlyPublic, onlyAdmin } from "../middlewares";
+import { onlyPublic, onlyAdmin, onlyAuthUser } from "../middlewares";
 
 const globalRouter = express.Router();
 
@@ -28,7 +28,7 @@ globalRouter.post(routes.login, onlyPublic, postLogin);
 globalRouter.get(routes.home, home);
 
 globalRouter.get(routes.logout, logout);
-globalRouter.get(routes.search, search);
+globalRouter.get(routes.search, onlyAuthUser, search);
 
 globalRouter.get(routes.github, githubLogin);
 globalRouter.get(
