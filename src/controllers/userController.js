@@ -16,6 +16,7 @@ export const postJoin = async (req, res, next) => {
       const user = await User({
         name,
         email,
+        avatarUrl: "../img/defaultProfile.png",
         authApply: false
       });
       await User.register(user, password);
