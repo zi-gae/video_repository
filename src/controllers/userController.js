@@ -50,6 +50,7 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
     _json: { id, avatar_url, name, email }
   } = profile;
   try {
+    avatar_url ? avatar_url : (avatar_url = "../img/defaultProfile.png");
     if (email === null || name === null) {
       throw error();
     }
@@ -84,6 +85,9 @@ export const kakaoLoginCallback = async (_, __, profile, done) => {
   } = profile;
   const { profile_image, nickname } = properties;
   try {
+    profile_image
+      ? profile_image
+      : (profile_image = "../img/defaultProfile.png");
     const user = await User.findOne({ email: kaccount_email });
     if (user) {
       (user.kakaoId = id),
